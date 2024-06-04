@@ -1,0 +1,62 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 400px);
+  row-gap: 50px;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+  margin-bottom: 14px;
+  font-size: 20px;
+}
+
+.cardFooter svg {
+  zoom: 1.7;
+}
+
+.img_container {
+  width: 1400px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.increm {
+  margin-right: 8px;
+  border-radius: 4px;
+  border: 1px solid #1890ff;
+  background-color: #f0f2f5;
+  color: #1890ff;
+  cursor: pointer;
+}
+
+.dicrem {
+  margin-left: 8px;
+  border-radius: 4px;
+  border: 1px solid #1890ff;
+  background-color: #f0f2f5;
+  color: #1890ff;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+  .gridContainer {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .gridContainer {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+  }
+}
