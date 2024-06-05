@@ -35,6 +35,10 @@ export default function Products() {
 
   const findProductInCart = (id) => cart.find((item) => item.id === id);
 
+  useEffect(() => {
+    localStorage.setItem("user", "false");
+  }, []);
+
   return (
     <>
       {contextHolder}

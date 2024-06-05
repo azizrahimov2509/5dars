@@ -14,7 +14,7 @@ function SignUp() {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
-        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("user", "true");
         navigate("/layout/products");
       })
       .catch((error) => {
