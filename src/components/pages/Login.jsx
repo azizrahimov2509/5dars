@@ -5,24 +5,30 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
+
     signInWithEmailAndPassword(auth, loginData.email, loginData.password)
       .then((userCredential) => {
-        //
         const user = userCredential.user;
         console.log("Login", user);
-
         localStorage.setItem("user", JSON.stringify(user));
-
-        navigate("/layout/home");
+        navigate("/layout/products");
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
+        if (
+          errorCode === `<p style={{color:"red"}}>auth/wrong-password</p>` ||
+          errorCode === `<p style={{color:"red"}}>auth/user-not-found</p>`
+        ) {
+          setError("Incorrect email or password. Please try signing up.");
+        } else {
+          setError(error.message);
+        }
+        console.log(error.message);
       });
 
     setLoginData({ email: "", password: "" });
@@ -68,6 +74,8 @@ function Login() {
             required
           />
         </div>
+
+        {error && <div className="text-red-500 text-sm">{error}</div>}
 
         <div className="form-control mt-4">
           <button type="submit" className="btn btn-primary w-full">

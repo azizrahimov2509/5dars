@@ -1,10 +1,14 @@
 import React from "react";
 import { header, container, logo, list } from "./style.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { Badge, Popover, List, Button, message } from "antd";
-import { ShoppingCartOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Badge, Popover, List, message, Button } from "antd";
+import {
+  ShoppingCartOutlined,
+  DeleteOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
 import { removeFromCart } from "../store/CartSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const cartItems = useSelector((state) => state.cart.items);
@@ -15,6 +19,12 @@ export default function Header() {
     (total, item) => total + item.count,
     0
   );
+
+  const logout = () => {
+    // Assuming 'logoutUser' is a Redux action that clears the authentication state
+    dispatch({ type: "LOGOUT_USER" });
+    navigate("/login"); // Redirect user to the login or sign-up page
+  };
 
   const cartContent = (
     <div style={{ width: 300 }}>
@@ -45,7 +55,7 @@ export default function Header() {
       <Button
         type="primary"
         style={{ width: "100%", marginTop: "10px" }}
-        onClick={() => navigate("/selected-cart")}
+        onClick={() => navigate("/layout/selected-cart")}
       >
         Checkout
       </Button>
@@ -55,22 +65,23 @@ export default function Header() {
   return (
     <header className={header}>
       <div className={container}>
-        <a href="/" className={logo}>
+        <Link to="/" className={logo}>
           LOGO
-        </a>
+        </Link>
         <nav>
           <ul className={list}>
             <li>
-              <a href="/">Home</a>
+              <Link to="/layout/products">Home</Link>
             </li>
             <li>
-              <a href="#">About</a>
+              <Link to="#">About</Link>
             </li>
             <li>
-              <a href="#">Contact</a>
+              <Link to="#">Contact</Link>
             </li>
           </ul>
         </nav>
+
         <Popover content={cartContent} trigger="hover" placement="bottomRight">
           <Badge count={totalItemsCount}>
             <ShoppingCartOutlined
@@ -78,6 +89,9 @@ export default function Header() {
             />
           </Badge>
         </Popover>
+        <button className="btn btn-error" onClick={logout}>
+          Logout <LogoutOutlined style={{ marginLeft: "8px" }} />
+        </button>
       </div>
     </header>
   );

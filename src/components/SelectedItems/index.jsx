@@ -15,7 +15,7 @@ export default function SelectedCart() {
   const dispatch = useDispatch();
 
   const handleBackToHome = () => {
-    navigate("/");
+    navigate("/layout/products");
   };
 
   return (
@@ -28,7 +28,9 @@ export default function SelectedCart() {
               hoverable
               key={id}
               style={{ width: 400 }}
-              cover={<img alt={title} src={image} width={400} height={400} />}
+              cover={
+                <img alt={title} src={image} className="w-[300px] h-[350px]" />
+              }
             >
               <div className={cardFooter}>
                 <h3>{price}$</h3>

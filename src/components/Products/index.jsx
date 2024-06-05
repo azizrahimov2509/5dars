@@ -54,7 +54,11 @@ export default function Products() {
                       width: 400,
                     }}
                     cover={
-                      <img alt="example" src={image} width={400} height={400} />
+                      <img
+                        alt="example"
+                        src={image}
+                        className="w-[300px] h-[350px]"
+                      />
                     }
                   >
                     <div className={cardFooter}>

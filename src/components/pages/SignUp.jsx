@@ -5,25 +5,34 @@ import { Link, useNavigate } from "react-router-dom";
 
 function SignUp() {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
       .then((userCredential) => {
-        // Signed up
         const user = userCredential.user;
         console.log(user);
-        // Save user to local storage
         localStorage.setItem("user", JSON.stringify(user));
-        // Navigate to Home
-        navigate("/layout/home");
+        navigate("/layout/products");
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
+        if (errorCode === "auth/email-already-in-use") {
+          setError(
+            <p style={{ color: "red", fontSize: "16px" }}>
+              {" "}
+              You already have an account. Please log in.
+            </p>
+          );
+        } else {
+          setError(error.message);
+        }
+        console.log(error.message);
       });
+
+    setFormData({ email: "", password: "" });
   };
 
   return (
@@ -33,6 +42,7 @@ function SignUp() {
         onSubmit={handleSubmit}
       >
         <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+        {error && <div className="text-red-500">{error}</div>}
         <div className="form-control">
           <label className="label" htmlFor="email">
             <span className="label-text">Email</span>

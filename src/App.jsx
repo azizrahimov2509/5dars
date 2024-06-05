@@ -13,6 +13,8 @@ import MainLayout from "./components/layout/MainLayout";
 import Home from "./components/pages/Home";
 import Login from "./components/pages/Login";
 import SignUp from "./components/pages/SignUp";
+import Products from "./components/Products";
+import SelectedCart from "./components/SelectedItems";
 
 function App() {
   function Redirect({ children }) {
@@ -37,7 +39,8 @@ function App() {
             </Redirect>
           }
         >
-          <Route path="home" element={<Home />} />
+          <Route path="products" element={<Products />} />
+          <Route path="selected-cart" element={<SelectedCart />} />
         </Route>
       </>
     )
