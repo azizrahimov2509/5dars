@@ -18,6 +18,8 @@ export default function SelectedCart() {
     navigate("/layout/products");
   };
 
+  const getTotalPriceForItem = (price, count) => price * count;
+
   return (
     <div className="container" style={{ padding: "20px" }}>
       <Title text="Selected Items" />
@@ -33,7 +35,9 @@ export default function SelectedCart() {
               }
             >
               <div className={cardFooter}>
-                <h3>{price}$</h3>
+                <h3 className="font-bold">
+                  Total price: {getTotalPriceForItem(price, count)}$
+                </h3>
                 <Button
                   onClick={() => {
                     message.warning("Item removed from cart");
@@ -58,7 +62,9 @@ export default function SelectedCart() {
                 title={title}
                 description={`Quantity: ${count} | ${description}`}
               />
-              <Typography.Paragraph style={{ margin: 0 }}>
+              <Typography.Paragraph
+                style={{ marginTop: "10px", fontWeight: 700 }}
+              >
                 Quantity: {count}
               </Typography.Paragraph>
             </Card>

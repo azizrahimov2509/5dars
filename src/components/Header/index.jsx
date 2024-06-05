@@ -12,6 +12,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const cartItems = useSelector((state) => state.cart.items);
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.price * item.count,
+    0
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -47,7 +51,9 @@ export default function Header() {
                 <img src={item.image} alt={item.title} width={50} height={50} />
               }
               title={item.title}
-              description={`Quantity: ${item.count} | Price: ${item.price}$`}
+              description={`Quantity: ${item.count} | Price per item: ${
+                item.price
+              }$ | Total Price: ${item.price * item.count}$`}
             />
           </List.Item>
         )}
@@ -90,7 +96,12 @@ export default function Header() {
           </Badge>
         </Popover>
         <button className="btn btn-error" onClick={logout}>
-          Logout <LogoutOutlined style={{ marginLeft: "8px" }} />
+          Logout{" "}
+          <LogoutOutlined
+            width={25}
+            height={25}
+            style={{ marginLeft: "8px" }}
+          />
         </button>
       </div>
     </header>
